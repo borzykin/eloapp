@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -21,6 +22,11 @@ public class PlayersController {
         List<Player> players = new ArrayList<>();
         playerRepo.findAll().forEach(players::add);
         return new Gson().toJson(players);
+    }
+
+    @GetMapping("/players/{playerId}")
+    public Optional<Player> getPlayer(@PathVariable int playerId) {
+        return playerRepo.findById(playerId);
     }
 
     @PostMapping("/players/add")
