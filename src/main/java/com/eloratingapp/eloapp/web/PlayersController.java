@@ -2,6 +2,7 @@ package com.eloratingapp.eloapp.web;
 
 import com.eloratingapp.eloapp.dao.PlayerRepository;
 import com.eloratingapp.eloapp.entities.Player;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +17,10 @@ public class PlayersController {
     PlayerRepository playerRepo;
 
     @GetMapping("/players")
-    public List<Player> getPlayersList() {
+    public String getPlayersList() {
         List<Player> players = new ArrayList<>();
         playerRepo.findAll().forEach(players::add);
-        return players;
+        return new Gson().toJson(players);
     }
 
     @PostMapping("/players/add")
